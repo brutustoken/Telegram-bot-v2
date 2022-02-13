@@ -1,0 +1,159 @@
+const TelegramBot = require('node-telegram-bot-api');
+const fetch = (...args) => import('node-fetch').then(({default: fetch}) => fetch(...args));
+require('dotenv').config();
+
+// replace the value below with the Telegram token you receive from @BotFather
+const token = process.env.APP_TOKENBOT;
+
+// Create a bot that uses 'polling' to fetch new updates
+const bot = new TelegramBot(token, {polling: true});
+
+/*
+
+- Negrita: <b>texto en negrita</b>, <strong>negrita</strong>
+- Cursiva: <i>texto en cursiva</i>, <em>cursiva</em>
+
+- Subrayado: <u>texto subrayado</u>, <ins>subrayado</ins>
+
+- Tachado: <s>texto tachado</s>, <strike>tachado</strike>, <del>tachado</del>
+
+Enlaces: <a href="https://www.Tecnonucleous.com/">Tecnonucleous</a>
+
+<a href="tg://user?id=123456789">inline mention of a user</a>
+- Código: <code>texto con el código</code>
+
+- Indica a la API que debe respetar los saltos de línea y los espacios en blanco: <pre>Texto con saltos de línea y espacios</pre>
+
+*/
+
+var comandos = {
+  steven: "El más inteligente",
+  manuel: "El más insistente",
+  vicente: "El más tranquilo",
+  prender: "Vicente quiere que lo prenda",
+  apagar: "Manuel quiere que lo apage",
+  brut: "brut",
+  BRUT: "brut",
+  brst: "brst",
+  BRST: "brst",
+  energia: "Solicita energia y recibe de acuerdo a tu hold de BRST + 10% extra, escribe el comando: <pre>/energiatron <b>TB7R...4XvF</b> </pre>",
+  energiatron: "ahí te va la energia"
+}
+
+async function consultar(apiUrl){
+
+  return await fetch(apiUrl)
+  .then(response => {
+    return response.json();
+  })
+  .then(data => {
+    return data.Data;
+
+  }).catch(() => {
+      
+    return {trx: "##", precio: "##"};
+  });
+
+}
+
+async function brut(){
+
+  var Data = await consultar('https://brutusprecio.herokuapp.com/api/v1/precio/BRUT');
+
+  return "BRUT: "+Data.precio+" USDT";
+}
+
+async function brst(){
+  
+  var Data = await consultar('https://brutusprecio.herokuapp.com/api/v1/precio/BRST');
+
+  return "BRST: "+Data.trx+" TRX";
+}
+console.log("Listo!!!")
+
+// Matches "/echo [whatever]"
+bot.onText(/\/echo (.+)/, (msg, match) => {
+  // 'msg' is the received Message from Telegram
+  // 'match' is the result of executing the regexp above on the text content
+  // of the message
+
+  const chatId = msg.chat.id;
+  const resp = match[1]; // the captured "whatever"
+
+  // send back the matched "whatever" to the chat
+  bot.sendMessage(chatId, resp);
+});
+
+// Listen for any kind of message. There are different kinds of
+// messages.
+bot.on('message', async(msg) => {
+  const chatId = msg.chat.id;
+
+  console.log(msg);
+
+  if(msg.entities){
+
+    for (let index = 0; index < msg.entities.length; index++) {
+      var comando = (msg.text).substring(msg.entities[index].offset+1, msg.entities[index].length)
+
+      if(comando.split("@").length > 0){
+        comando = comando.split("@")[0];
+
+      }
+
+      if(comandos[comando]){
+
+        switch (comandos[comando]) {
+          case "brut":
+            bot.sendMessage(chatId, await brut());
+            
+            break;
+
+          case "brst":
+            bot.sendMessage(chatId, await brst());
+            
+            break;
+        
+          default:
+            bot.sendMessage(chatId, comandos[comando],{ parse_mode : "HTML"});
+            break;
+        }
+
+      }else{
+        bot.sendMessage(chatId, 'esto es un comando que quieres que haga? '+msg.from.first_name+'');
+
+      }
+      
+      
+    }
+    
+    
+  }else{
+
+    if(msg.text){
+      // send a message to the chat acknowledging receipt of their message
+      var Hi = "hola";
+      if (msg.text.toString().toLowerCase().indexOf(Hi) === 0) {
+        bot.sendMessage(chatId, 'Hola '+msg.from.first_name+' que puedo hacer por ti?');
+      }
+
+      if (msg.text.toString().toLowerCase().includes("adios") || msg.text.toString().toLowerCase().includes("adiós")) {
+        bot.sendMessage(chatId, 'Adiós '+msg.from.first_name+' que vaya bien.');
+
+      }
+      var robot = "robot";
+      if (msg.text.toString().toLowerCase().includes(robot)) {
+          bot.sendMessage(msg.chat.id, "Si soy un robot!");
+      }
+      var robot = "presentar";
+      if (msg.text.toString().toLowerCase().includes(robot)) {
+          bot.sendMessage(msg.chat.id, "vale, soy el ayudante de mis padres /manuel /vicente y /steven, soy de la 4ta queneración de bots que han desarrollado y basicamente estoy para brindar informacion del proyecto!");
+      }
+    }else{
+      bot.sendMessage(msg.chat.id, "Hola soy el BRUTUS BOT V2!");
+    }
+    
+  }
+
+  
+});
