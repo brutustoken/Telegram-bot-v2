@@ -30,6 +30,7 @@ var comandos = {
   steven: "El más inteligente",
   manuel: "El más insistente",
   vicente: "El más tranquilo",
+  prendeme: "Esto esta prendido mijo!!",
   prender: "Vicente quiere que lo prenda",
   apagar: "Manuel quiere que lo apage",
   brut: "brut",
@@ -63,14 +64,14 @@ async function brut(){
 
   var Data = await consultar('https://brutusprecio.herokuapp.com/api/v1/precio/BRUT');
 
-  return "BRUT: "+Data.precio+" USDT";
+  return "#BRUT: "+Data.precio+" USDT";
 }
 
 async function brst(){
   
   var Data = await consultar('https://brutusprecio.herokuapp.com/api/v1/precio/BRST');
 
-  return "BRST: "+Data.trx+" TRX";
+  return "#BRST: "+Data.trx+" TRX";
 }
 console.log("Listo!!!")
 
