@@ -1,5 +1,5 @@
 const TelegramBot = require('node-telegram-bot-api');
-const fetch = (...args) => import('node-fetch').then(({default: fetch}) => fetch(...args));
+const fetch = require('node-fetch');
 require('dotenv').config();
 
 // replace the value below with the Telegram token you receive from @BotFather
