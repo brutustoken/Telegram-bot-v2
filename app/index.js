@@ -65,11 +65,11 @@ async function consultar(apiUrl){
 
   return await fetch(apiUrl)
   .then(response => {
-    console.log(response);
+    //console.log(response);
     return response.json();
   })
   .then(data => {
-    console.log(data);
+    //console.log(data);
 
     return data.Data;
 
@@ -85,8 +85,8 @@ async function brut(){
   var Data = await consultar('https://brutusprecio.herokuapp.com/api/v1/precio/BRUT');
 
   const instance = new PrecioBRUT({
-    par: "trx",
-    valor: Data.trx,
+    par: "usd",
+    valor: Data.precio,
     date: Date.now()
     
   });
