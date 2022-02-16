@@ -83,6 +83,16 @@ async function consultar(apiUrl){
 async function brut(){
 
   var Data = await consultar('https://brutusprecio.herokuapp.com/api/v1/precio/BRUT');
+
+  const instance = new PrecioBRUT({
+    par: "trx",
+    valor: Data.trx,
+    date: Date.now()
+    
+  });
+  instance.save(async function (err) {
+    console.log(await PrecioBRUT.find({}))
+  });
   
   return "#BRUT: "+Data.precio+" USDT";
 }
