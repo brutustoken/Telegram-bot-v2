@@ -98,7 +98,7 @@ async function brst(){
     
   });
   instance.save(function (err) {
-    //
+    console.log(PrecioBRST.find({}))
   });
 
   return "#BRST: "+Data.trx+" TRX";
@@ -123,7 +123,7 @@ bot.onText(/\/echo (.+)/, (msg, match) => {
 bot.on('message', async(msg) => {
   const chatId = msg.chat.id;
 
-  console.log(msg);
+  //console.log(msg);
 
   if(msg.entities){
 
