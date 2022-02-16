@@ -97,8 +97,8 @@ async function brst(){
     date: Date.now()
     
   });
-  instance.save(function (err) {
-    console.log(PrecioBRST.find({}))
+  instance.save(async function (err) {
+    console.log(await PrecioBRST.find({}))
   });
 
   return "#BRST: "+Data.trx+" TRX";
