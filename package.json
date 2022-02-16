@@ -5,7 +5,8 @@
   "main": "index.js",
   "scripts": {
     "test": "test",
-    "start": "nodemon app"
+    "start": "nodemon app",
+    "dev": "nodemon app"
   },
   "keywords": [
     "brutus",
@@ -15,6 +16,7 @@
   "license": "Apache-2.0",
   "dependencies": {
     "dotenv": "^16.0.0",
+    "mongoose": "^6.2.1",
     "node-fetch": "^2.6.7",
     "node-telegram-bot-api": "^0.56.0"
   },

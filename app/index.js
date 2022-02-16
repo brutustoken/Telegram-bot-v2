@@ -1,5 +1,6 @@
 const TelegramBot = require('node-telegram-bot-api');
 const fetch = require('node-fetch');
+const mongoose = require('mongoose');
 require('dotenv').config();
 
 // replace the value below with the Telegram token you receive from @BotFather
@@ -7,6 +8,25 @@ const token = process.env.APP_TOKENBOT;
 
 // Create a bot that uses 'polling' to fetch new updates
 const bot = new TelegramBot(token, {polling: true});
+
+mongoose.connect('mongodb://localhost/my_database')
+.then(()=>{
+  console.log("conectado MD")
+})
+.catch(console.log)
+
+const Schema = mongoose.Schema;
+
+const Precios = new Schema({
+  par: String,
+  valor: Number,
+  date: Date
+  
+});
+
+const PrecioBRST = mongoose.model('brst', Precios);
+const PrecioBRUT = mongoose.model('brut', Precios);
+
 
 /*
 
@@ -63,13 +83,23 @@ async function consultar(apiUrl){
 async function brut(){
 
   var Data = await consultar('https://brutusprecio.herokuapp.com/api/v1/precio/BRUT');
-
+  
   return "#BRUT: "+Data.precio+" USDT";
 }
 
 async function brst(){
   
   var Data = await consultar('https://brutusprecio.herokuapp.com/api/v1/precio/BRST');
+
+  const instance = new PrecioBRST({
+    par: "trx",
+    valor: Data.trx,
+    date: Date.now()
+    
+  });
+  instance.save(function (err) {
+    //
+  });
 
   return "#BRST: "+Data.trx+" TRX";
 }
