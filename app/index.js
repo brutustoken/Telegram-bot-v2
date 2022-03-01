@@ -1,6 +1,8 @@
 const TelegramBot = require('node-telegram-bot-api');
 const fetch = require('node-fetch');
 const mongoose = require('mongoose');
+const CronJob = require('cron').CronJob;
+
 require('dotenv').config();
 
 // replace the value below with the Telegram token you receive from @BotFather
@@ -61,6 +63,23 @@ var comandos = {
   energiatron: "ahí te va la energia"
 }
 
+var listaBoletin = [ 
+  -1001540123789, // grupo privado
+  -1001675055650 //grupo publico
+
+]
+
+var boletin = new CronJob('0 0 0 1 * *', async function() {
+  for (let index = 0; index < listaBoletin.length; index++) {
+    bot.sendMessage(listaBoletin[index], '🤖 BOLETÍN BRUTUS TOKEN 🤖\n----------------------------------------------------\n'+await brut()+' \n'+await brst()+'\n----------------------------------------------------\n♻️ORDENES PENDIENTES BRST♻️\n----------------------------------------------------', { parse_mode : "HTML"});
+
+    
+  }
+  console.log('boletin enviado');
+}, null, true, 'UTC');
+
+boletin.start();
+
 async function consultar(apiUrl){
 
   return await fetch(apiUrl)
@@ -94,7 +113,7 @@ async function brut(){
     console.log(await PrecioBRUT.find({}))
   });
   
-  return "#BRUT: "+Data.precio+" USDT";
+  return "#BRUT🟠<b>: "+Data.precio+"</b> USDT";
 }
 
 async function brst(){
@@ -111,7 +130,7 @@ async function brst(){
     console.log(await PrecioBRST.find({}))
   });
 
-  return "#BRST: "+Data.trx+" TRX";
+  return "#BRST🔴<b>: "+Data.trx+"</b> TRX";
 }
 console.log("Listo!!!")
 
@@ -123,6 +142,8 @@ bot.onText(/\/echo (.+)/, (msg, match) => {
 
   const chatId = msg.chat.id;
   const resp = match[1]; // the captured "whatever"
+
+  console.log(match)
 
   // send back the matched "whatever" to the chat
   bot.sendMessage(chatId, resp);
@@ -149,12 +170,12 @@ bot.on('message', async(msg) => {
 
         switch (comandos[comando]) {
           case "brut":
-            bot.sendMessage(chatId, await brut());
+            bot.sendMessage(chatId, await brut(), { parse_mode : "HTML"});
             
             break;
 
           case "brst":
-            bot.sendMessage(chatId, await brst());
+            bot.sendMessage(chatId, await brst(), { parse_mode : "HTML"});
             
             break;
         
@@ -192,6 +213,11 @@ bot.on('message', async(msg) => {
       var robot = "presentar";
       if (msg.text.toString().toLowerCase().includes(robot)) {
           bot.sendMessage(msg.chat.id, "vale, soy el ayudante de mis padres /manuel /vicente y /steven, soy de la 4ta queneración de bots que han desarrollado y basicamente estoy para brindar informacion del proyecto!");
+      }
+
+      var myid = "myid";
+      if (msg.text.toString().toLowerCase().includes(myid)) {
+          bot.sendMessage(msg.chat.id, msg.chat.id);
       }
     }else{
       bot.sendMessage(msg.chat.id, "Hola soy el BRUTUS BOT V2!");
