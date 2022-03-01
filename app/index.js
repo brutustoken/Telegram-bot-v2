@@ -59,6 +59,9 @@ var comandos = {
   BRUT: "brut",
   brst: "brst",
   BRST: "brst",
+  boletin: "boletin",
+  BOLETIN: "boletin",
+  Boletin: "boletin",
   energia: "Solicita energia y recibe de acuerdo a tu hold de BRST + 10% extra, escribe el comando: <pre>/energiatron <b>TB7R...4XvF</b> </pre>",
   energiatron: "ahí te va la energia"
 }
@@ -69,10 +72,10 @@ var listaBoletin = [
 
 ]
 
+
 var boletin = new CronJob('0 0 0 1 * *', async function() {
   for (let index = 0; index < listaBoletin.length; index++) {
-    bot.sendMessage(listaBoletin[index], '🤖 BOLETÍN BRUTUS TOKEN 🤖\n----------------------------------------------------\n'+await brut()+' \n'+await brst()+'\n----------------------------------------------------\n♻️ORDENES PENDIENTES BRST♻️\n----------------------------------------------------', { parse_mode : "HTML"});
-
+    miBoletin(destino)
     
   }
   console.log('boletin enviado');
@@ -96,6 +99,11 @@ async function consultar(apiUrl){
       
     return {trx: "##", precio: "##"};
   });
+
+}
+
+async function miBoletin(destino){
+  bot.sendMessage(destino, '🤖 BOLETÍN BRUTUS TOKEN 🤖\n----------------------------------------------------\n'+await brut()+' \n'+await brst()+'\n----------------------------------------------------\n♻️ORDENES PENDIENTES BRST♻️\n----------------------------------------------------', { parse_mode : "HTML"});
 
 }
 
@@ -176,6 +184,11 @@ bot.on('message', async(msg) => {
 
           case "brst":
             bot.sendMessage(chatId, await brst(), { parse_mode : "HTML"});
+            
+            break;
+
+          case "boletin":
+            bot.sendMessage(chatId, await miBoletin(), { parse_mode : "HTML"});
             
             break;
         
