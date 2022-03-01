@@ -103,7 +103,7 @@ async function consultar(apiUrl){
 }
 
 async function miBoletin(){
-  return '🤖 BOLETÍN BRUTUS TOKEN 🤖\n----------------------------------------------------\n'+await brut()+' \n'+await brst()+'\n----------------------------------------------------\n♻️ORDENES PENDIENTES BRST♻️\n----------------------------------------------------';
+  return "🤖 BOLETÍN BRUTUS TOKEN 🤖\n----------------------------------------------------\n'+await brut()+' \n'+await brst()+'\n----------------------------------------------------\n♻️ORDENES PENDIENTES BRST♻️\n----------------------------------------------------";
 
 }
 
@@ -190,7 +190,7 @@ bot.on('message', async(msg) => {
             break;
 
           case "boletin":
-            bot.sendMessage(chatId, await miBoletin(chatId), { parse_mode : "HTML"});
+            bot.sendMessage(chatId, await miBoletin(), { parse_mode : "HTML"});
             
             break;
         
