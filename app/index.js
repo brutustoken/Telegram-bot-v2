@@ -75,7 +75,7 @@ var listaBoletin = [
 
 var boletin = new CronJob('0 0 0 1 * *', async function() {
   for (let index = 0; index < listaBoletin.length; index++) {
-    miBoletin(destino)
+    bot.sendMessage(chatId, await miBoletin(), { parse_mode : "HTML"});
     
   }
   console.log('boletin enviado');
@@ -102,8 +102,8 @@ async function consultar(apiUrl){
 
 }
 
-async function miBoletin(destino){
-  bot.sendMessage(destino, '🤖 BOLETÍN BRUTUS TOKEN 🤖\n----------------------------------------------------\n'+await brut()+' \n'+await brst()+'\n----------------------------------------------------\n♻️ORDENES PENDIENTES BRST♻️\n----------------------------------------------------', { parse_mode : "HTML"});
+async function miBoletin(){
+  return '🤖 BOLETÍN BRUTUS TOKEN 🤖\n----------------------------------------------------\n'+await brut()+' \n'+await brst()+'\n----------------------------------------------------\n♻️ORDENES PENDIENTES BRST♻️\n----------------------------------------------------';
 
 }
 
@@ -195,7 +195,7 @@ bot.on('message', async(msg) => {
             break;
         
           default:
-            bot.sendMessage(chatId, comandos[comando],{ parse_mode : "HTML"});
+            bot.sendMessage(chatId, comandos[comando], { parse_mode : "HTML"});
             break;
         }
 
