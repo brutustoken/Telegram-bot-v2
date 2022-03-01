@@ -176,6 +176,8 @@ bot.on('message', async(msg) => {
 
       if(comandos[comando]){
 
+        console.log(comandos[comando])
+
         switch (comandos[comando]) {
           case "brut":
             bot.sendMessage(chatId, await brut(), { parse_mode : "HTML"});
