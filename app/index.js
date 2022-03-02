@@ -121,7 +121,7 @@ async function brut(){
     console.log(await PrecioBRUT.find({}))
   });
   
-  return "#BRUT:🟠<b> "+Data.precio+"</b> USDT";
+  return "#BRUT 🟠<b> "+Data.precio+"</b> USDT";
 }
 
 async function brst(){
@@ -138,7 +138,7 @@ async function brst(){
     console.log(await PrecioBRST.find({}))
   });
 
-  return "#BRST:🔴<b> "+Data.trx+"</b> TRX";
+  return "#BRST 🔴<b> "+Data.trx+"</b> TRX";
 }
 console.log("Listo!!!")
 
