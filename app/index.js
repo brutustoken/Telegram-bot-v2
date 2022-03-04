@@ -75,7 +75,7 @@ var listaBoletin = [
 
 var boletin = new CronJob('0 0 12 * * *', async function() {
   for (let index = 0; index < listaBoletin.length; index++) {
-    bot.sendMessage(chatId, await miBoletin(), { parse_mode : "HTML"});
+    bot.sendMessage(listaBoletin[index], await miBoletin(), { parse_mode : "HTML"});
     
   }
   console.log('boletin enviado');
