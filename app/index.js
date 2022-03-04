@@ -67,13 +67,13 @@ var comandos = {
 }
 
 var listaBoletin = [ 
-  -1001540123789, // grupo privado
-  -1001675055650 //grupo publico
+  -1001540123789, 
+  -1001675055650 
 
 ]
 
 
-var boletin = new CronJob('0 0 0 1 * *', async function() {
+var boletin = new CronJob('0 0 12 * * *', async function() {
   for (let index = 0; index < listaBoletin.length; index++) {
     bot.sendMessage(chatId, await miBoletin(), { parse_mode : "HTML"});
     
