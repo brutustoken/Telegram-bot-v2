@@ -79,7 +79,7 @@ var boletin = new CronJob('0 0 0 1 * *', async function() {
     
   }
   console.log('boletin enviado');
-}, null, true, 'UTC');
+}, null, true, 'America/Bogota');
 
 boletin.start();
 
