@@ -73,7 +73,7 @@ var listaBoletin = [
 ]
 
 
-var boletin = new CronJob('0 */12 * * *', async function() {
+var boletin = new CronJob('0 8 * * *', async function() {
   for (let index = 0; index < listaBoletin.length; index++) {
     bot.sendMessage(listaBoletin[index], await miBoletin(), { parse_mode : "HTML"});
     
