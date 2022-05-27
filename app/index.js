@@ -29,7 +29,6 @@ const Precios = new Schema({
 const PrecioBRST = mongoose.model('brst', Precios);
 const PrecioBRUT = mongoose.model('brut', Precios);
 
-
 /*
 
 - Negrita: <b>texto en negrita</b>, <strong>negrita</strong>
@@ -73,7 +72,7 @@ var listaBoletin = [
 ]
 
 
-var boletin = new CronJob('0 8 * * *', async function() {
+var boletin = new CronJob('0 10 * * *', async function() {
   for (let index = 0; index < listaBoletin.length; index++) {
     bot.sendMessage(listaBoletin[index], await miBoletin(), { parse_mode : "HTML"});
     
@@ -109,7 +108,7 @@ async function miBoletin(){
 
 async function brut(){
 
-  var Data = await consultar('https://brutusprecio.herokuapp.com/api/v1/precio/BRUT');
+  var Data = await consultar('http://brutustronstaking.tk:3004/api/v1/precio/BRUT');
 
   const instance = new PrecioBRUT({
     par: "usd",
@@ -126,7 +125,7 @@ async function brut(){
 
 async function brst(){
   
-  var Data = await consultar('https://brutusprecio.herokuapp.com/api/v1/precio/BRST');
+  var Data = await consultar('http://brutustronstaking.tk:3004/api/v1/precio/BRST');
 
   const instance = new PrecioBRST({
     par: "trx",
