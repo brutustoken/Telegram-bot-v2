@@ -23,7 +23,8 @@ const Schema = mongoose.Schema;
 const Precios = new Schema({
   par: String,
   valor: Number,
-  date: Number
+  date: Date,
+  epoch: Number
   
 });
 
@@ -109,7 +110,8 @@ async function miBoletin(){
   var instance = new PrecioBRUT({
     par: "brut-usd",
     valor: Data.precio,
-    date: Date.now()
+    date: Date.now(),
+    epoch: Date.now()
     
   });
 
@@ -122,7 +124,8 @@ async function miBoletin(){
   instance = new PrecioBRST({
     par: "brst-trx",
     valor: Data.trx,
-    date: Date.now()
+    date: Date.now(),
+    epoch: Date.now()
     
   });
 
