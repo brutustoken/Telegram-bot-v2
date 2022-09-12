@@ -102,7 +102,7 @@ async function consultar(apiUrl){
 }
 
 async function miBoletin(){
-  return "🤖 BOLETÍN BRUTUS TOKEN 🤖\n----------------------------------------------------\n"+await brut()+"\n"+await brst()+"\n----------------------------------------------------\n♻️ORDENES PENDIENTES BRST♻️\n----------------------------------------------------";
+  return "🤖 BOLETÍN BRUTUS TOKEN 🤖\n----------------------------------------------------\n"+await brut()+"\n"+await brst()+"\n----------------------------------------------------";
 
 }
 
@@ -142,7 +142,7 @@ async function brst(){
 console.log("Listo!!!")
 
 // Matches "/echo [whatever]"
-bot.onText(/\/echo (.+)/, (msg, match) => {
+/*bot.onText(/\/echo (.+)/, (msg, match) => {
   // 'msg' is the received Message from Telegram
   // 'match' is the result of executing the regexp above on the text content
   // of the message
@@ -154,14 +154,12 @@ bot.onText(/\/echo (.+)/, (msg, match) => {
 
   // send back the matched "whatever" to the chat
   bot.sendMessage(chatId, resp);
-});
+});*/
 
 // Listen for any kind of message. There are different kinds of
 // messages.
 bot.on('message', async(msg) => {
   const chatId = msg.chat.id;
-
-  //console.log(msg);
 
   if(msg.entities){
 
@@ -170,13 +168,9 @@ bot.on('message', async(msg) => {
 
       if(comando.split("@").length > 0){
         comando = comando.split("@")[0];
-
       }
 
       if(comandos[comando]){
-
-        //console.log(comandos[comando])
-
         switch (comandos[comando]) {
           case "brut":
             bot.sendMessage(chatId, await brut(), { parse_mode : "HTML"});
@@ -198,10 +192,8 @@ bot.on('message', async(msg) => {
             break;
         }
 
-      }else{
-        bot.sendMessage(chatId, 'esto es un comando que quieres que haga? '+msg.from.first_name+'');
-
       }
+      
       
       
     }
@@ -211,7 +203,7 @@ bot.on('message', async(msg) => {
 
     if(msg.text){
       // send a message to the chat acknowledging receipt of their message
-      var Hi = "hola";
+      var Hi = "Hola brutus";
       if (msg.text.toString().toLowerCase().indexOf(Hi) === 0) {
         bot.sendMessage(chatId, 'Hola '+msg.from.first_name+' que puedo hacer por ti?');
       }
@@ -220,21 +212,24 @@ bot.on('message', async(msg) => {
         bot.sendMessage(chatId, 'Adiós '+msg.from.first_name+' que vaya bien.');
 
       }
-      var robot = "robot";
-      if (msg.text.toString().toLowerCase().includes(robot)) {
+      var text = "eres un robot";
+      if (msg.text.toString().toLowerCase().includes(text)) {
           bot.sendMessage(msg.chat.id, "Si soy un robot!");
       }
-      var robot = "presentar";
-      if (msg.text.toString().toLowerCase().includes(robot)) {
+      var text = "presentar";
+      if (msg.text.toString().toLowerCase().includes(text)) {
           bot.sendMessage(msg.chat.id, "vale, soy el ayudante de mis padres /manuel /vicente y /steven, soy de la 4ta queneración de bots que han desarrollado y basicamente estoy para brindar informacion del proyecto!");
+      }
+
+      var text = "quien eres";
+      if (msg.text.toString().toLowerCase().includes(text)) {
+        bot.sendMessage(msg.chat.id, "Hola soy el BRUTUS BOT V2!");
       }
 
       var myid = "myid";
       if (msg.text.toString().toLowerCase().includes(myid)) {
           bot.sendMessage(msg.chat.id, msg.chat.id);
       }
-    }else{
-      bot.sendMessage(msg.chat.id, "Hola soy el BRUTUS BOT V2!");
     }
     
   }
