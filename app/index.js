@@ -23,7 +23,7 @@ const Schema = mongoose.Schema;
 const Precios = new Schema({
   par: String,
   valor: Number,
-  date: Date
+  date: Number
   
 });
 
@@ -103,6 +103,33 @@ async function consultar(apiUrl){
 }
 
 async function miBoletin(){
+
+  var Data = await consultar('http://brutustronstaking.tk:3004/api/v1/precio/BRUT');
+
+  var instance = new PrecioBRUT({
+    par: "brut-usd",
+    valor: Data.precio,
+    date: Date.now()
+    
+  });
+
+  await instance.save({});
+
+  console.log(await PrecioBRUT.findOne({}).sort({date:-1}))
+
+  Data = await consultar('http://brutustronstaking.tk:3004/api/v1/precio/BRST');
+
+  instance = new PrecioBRST({
+    par: "brst-trx",
+    valor: Data.trx,
+    date: Date.now()
+    
+  });
+
+  await instance.save({});
+    
+  console.log(await PrecioBRST.findOne({}).sort({date:-1}))
+
   return "🤖 BOLETÍN BRUTUS TOKEN 🤖\n----------------------------------------------------\n"+await brut()+"\n"+await brst()+"\n----------------------------------------------------";
 
 }
@@ -110,16 +137,6 @@ async function miBoletin(){
 async function brut(){
 
   var Data = await consultar('http://brutustronstaking.tk:3004/api/v1/precio/BRUT');
-
-  const instance = new PrecioBRUT({
-    par: "usd",
-    valor: Data.precio,
-    date: Date.now()
-    
-  });
-  instance.save(async function (err) {
-    console.log(await PrecioBRUT.find({}))
-  });
   
   return "#BRUT 🟠<b> "+Data.precio+"</b> USDT";
 }
@@ -127,19 +144,11 @@ async function brut(){
 async function brst(){
   
   var Data = await consultar('http://brutustronstaking.tk:3004/api/v1/precio/BRST');
-
-  const instance = new PrecioBRST({
-    par: "trx",
-    valor: Data.trx,
-    date: Date.now()
-    
-  });
-  instance.save(async function (err) {
-    console.log(await PrecioBRST.find({}))
-  });
-
+  
   return "#BRST 🔴<b> "+Data.trx+"</b> TRX";
 }
+
+
 console.log("Listo!!!")
 
 // Matches "/echo [whatever]"
