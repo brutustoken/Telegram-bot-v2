@@ -4,7 +4,7 @@
   "description": "es el bot de telegram para ayudar en administarcion",
   "main": "index.js",
   "scripts": {
-    "test": "test",
+    "test": "nodemon app",
     "start": "nodemon app",
     "dev": "nodemon app"
   },

@@ -7,11 +7,12 @@ require('dotenv').config();
 
 // replace the value below with the Telegram token you receive from @BotFather
 const token = process.env.APP_TOKENBOT;
+const uriMongoDB = process.env.APP_URIMONGODB;
 
 // Create a bot that uses 'polling' to fetch new updates
 const bot = new TelegramBot(token, {polling: true});
 
-mongoose.connect('mongodb://localhost/my_database')
+mongoose.connect(uriMongoDB)
 .then(()=>{
   console.log("conectado MD")
 })
