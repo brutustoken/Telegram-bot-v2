@@ -5,6 +5,8 @@ const CronJob = require('cron').CronJob;
 
 require('dotenv').config();
 
+const API = "https://chainlist.tk/";
+
 // replace the value below with the Telegram token you receive from @BotFather
 const token = process.env.APP_TOKENBOT;
 const uriMongoDB = process.env.APP_URIMONGODB;
@@ -105,7 +107,7 @@ async function consultar(apiUrl){
 
 async function miBoletin(){
 
-  var Data = await consultar('https://laurldeencuentro.tk/api/v1/precio/BRUT');
+  var Data = await consultar(API+'api/v1/precio/BRUT');
 
   var instance = new PrecioBRUT({
     par: "brut-usd",
@@ -119,7 +121,7 @@ async function miBoletin(){
 
   console.log(await PrecioBRUT.findOne({}).sort({date:-1}))
 
-  Data = await consultar('https://laurldeencuentro.tk/api/v1/precio/BRST');
+  Data = await consultar(API+'/api/v1/precio/BRST');
 
   instance = new PrecioBRST({
     par: "brst-trx",
@@ -139,14 +141,14 @@ async function miBoletin(){
 
 async function brut(){
 
-  var Data = await consultar('https://laurldeencuentro.tk/api/v1/precio/BRUT');
+  var Data = await consultar(API+'api/v1/precio/BRUT');
   
   return "#BRUT 🟠<b> "+Data.precio+"</b> USDT";
 }
 
 async function brst(){
   
-  var Data = await consultar('https://laurldeencuentro.tk/api/v1/precio/BRST');
+  var Data = await consultar(API+'api/v1/precio/BRST');
   
   return "#BRST 🔴<b> "+Data.trx+"</b> TRX";
 }
