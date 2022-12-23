@@ -5,7 +5,7 @@ const CronJob = require('cron').CronJob;
 
 require('dotenv').config();
 
-const API = "https://chainlist.tk/";
+const API = "http://localhost:3004";
 
 // replace the value below with the Telegram token you receive from @BotFather
 const token = process.env.APP_TOKENBOT;
