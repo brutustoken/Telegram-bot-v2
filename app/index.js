@@ -5,7 +5,7 @@ const CronJob = require('cron').CronJob;
 
 require('dotenv').config();
 
-const API = "http://localhost:3004";
+const API = "http://localhost:3004/";
 
 // replace the value below with the Telegram token you receive from @BotFather
 const token = process.env.APP_TOKENBOT;
@@ -141,6 +141,8 @@ async function brut(){
 async function brst(){
   
   var Data = await consultar(API+'api/v1/precio/BRST');
+
+  console.log(Data)
   
   return "#BRST 🔴<b> "+Data.trx+"</b> TRX";
 }
