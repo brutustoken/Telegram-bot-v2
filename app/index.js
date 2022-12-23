@@ -82,18 +82,18 @@ boletin.start();
 async function consultar(apiUrl){
 
   return await fetch(apiUrl)
-  .then(response => {
-    //console.log(response);
-    return response.json();
-  })
-  .then(data => {
-    //console.log(data);
-    return data.Data;
+    .then(response => {
+      //console.log(response);
+      return response.json();
+    })
+    .then(data => {
+      //console.log(data);
+      return data.Data;
 
-  }).catch(() => {
-      
-    return {trx: "##", precio: "##"};
-  });
+    }).catch(() => {
+        
+      return {trx: "##", usd: "##"};
+    });
 
 }
 
@@ -103,7 +103,7 @@ async function miBoletin(){
 
   var instance = new PrecioBRUT({
     par: "brut-usd",
-    valor: Data.precio,
+    valor: Data.usd,
     date: Date.now(),
     epoch: Date.now()
     
@@ -135,7 +135,7 @@ async function brut(){
 
   var Data = await consultar(API+'api/v1/precio/BRUT');
   
-  return "#BRUT 🟠<b> "+Data.precio+"</b> USDT";
+  return "#BRUT 🟠<b> "+Data.usd+"</b> USDT";
 }
 
 async function brst(){
