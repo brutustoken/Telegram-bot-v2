@@ -34,21 +34,14 @@ const PrecioBRST = mongoose.model('brst', Precios);
 const PrecioBRUT = mongoose.model('brut', Precios);
 
 /*
-
 - Negrita: <b>texto en negrita</b>, <strong>negrita</strong>
 - Cursiva: <i>texto en cursiva</i>, <em>cursiva</em>
-
 - Subrayado: <u>texto subrayado</u>, <ins>subrayado</ins>
-
 - Tachado: <s>texto tachado</s>, <strike>tachado</strike>, <del>tachado</del>
-
 Enlaces: <a href="https://www.Tecnonucleous.com/">Tecnonucleous</a>
-
 <a href="tg://user?id=123456789">inline mention of a user</a>
 - Código: <code>texto con el código</code>
-
 - Indica a la API que debe respetar los saltos de línea y los espacios en blanco: <pre>Texto con saltos de línea y espacios</pre>
-
 */
 
 var comandos = {
@@ -95,7 +88,6 @@ async function consultar(apiUrl){
   })
   .then(data => {
     //console.log(data);
-
     return data.Data;
 
   }).catch(() => {
