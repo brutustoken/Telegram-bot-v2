@@ -14,6 +14,7 @@ const uriMongoDB = process.env.APP_URIMONGODB;
 // Create a bot that uses 'polling' to fetch new updates
 const bot = new TelegramBot(token, {polling: true});
 
+mongoose.set('strictQuery', false);
 mongoose.connect(uriMongoDB)
 .then(()=>{
   console.log("conectado MD")
@@ -27,7 +28,6 @@ const Precios = new Schema({
   valor: Number,
   date: Date,
   epoch: Number
-  
 });
 
 const PrecioBRST = mongoose.model('brst', Precios);
