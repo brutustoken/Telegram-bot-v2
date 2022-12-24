@@ -111,9 +111,7 @@ async function miBoletin(){
 
   await instance.save({});
 
-  console.log(await PrecioBRUT.findOne({}).sort({date:-1}))
-
-  Data = await consultar(API+'/api/v1/precio/BRST');
+  Data = await consultar(API+'api/v1/precio/BRST');
 
   instance = new PrecioBRST({
     par: "brst-trx",
@@ -124,8 +122,6 @@ async function miBoletin(){
   });
 
   await instance.save({});
-    
-  console.log(await PrecioBRST.findOne({}).sort({date:-1}))
 
   return "🤖 BOLETÍN BRUTUS TOKEN 🤖\n----------------------------------------------------\n"+await brut()+"\n"+await brst()+"\n----------------------------------------------------";
 
@@ -141,8 +137,6 @@ async function brut(){
 async function brst(){
   
   var Data = await consultar(API+'api/v1/precio/BRST');
-
-  console.log(Data)
   
   return "#BRST 🔴<b> "+Data.trx+"</b> TRX";
 }
