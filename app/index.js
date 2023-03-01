@@ -111,19 +111,21 @@ async function miBoletin(){
 
   await instance.save({});
 
-  Data = await consultar(API+'api/v1/precio/BRST');
+  var Data2 = await consultar(API+'api/v1/precio/BRST');
 
-  instance = new PrecioBRST({
+  var instance2 = new PrecioBRST({
     par: "brst-trx",
-    valor: Data.trx,
+    valor: Data2.trx,
     date: Date.now(),
     epoch: Date.now()
     
   });
 
-  await instance.save({});
+  await instance2.save({});
 
-  return "🤖 BOLETÍN BRUTUS TOKEN 🤖\n----------------------------------------------------\n"+await brut()+"\n"+await brst()+"\n----------------------------------------------------";
+  var fecha = new Date(Date.now());
+
+  return "🤖 BRUTUS BOLETÍN "+ fecha.getDate() +"/"+ (fecha.getMonth()+1) +"/"+ fecha.getFullYear() +" 🤖\n----------------------------------------------------\n"+await brut()+'\n'+await brst()+'\n----------------------------------------------------\n⚡<a href="https://t.me/BRUTUS_energy_bot">¡Alquila energía con BRUTUS!</a>⚡';
 
 }
 
