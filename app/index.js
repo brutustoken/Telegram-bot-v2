@@ -68,8 +68,8 @@ var listaBoletin = [
 
 ]
 
-
 var boletin = new CronJob('0 10 * * *', async function() {
+  guardarDatos();
   for (let index = 0; index < listaBoletin.length; index++) {
     bot.sendMessage(listaBoletin[index], await miBoletin(), { parse_mode : "HTML"});
     
@@ -99,6 +99,14 @@ async function consultar(apiUrl){
 
 async function miBoletin(){
 
+  var fecha = new Date(Date.now());
+
+  return "🤖 BRUTUS BOLETÍN "+ fecha.getDate() +"/"+ (fecha.getMonth()+1) +"/"+ fecha.getFullYear() +" 🤖\n----------------------------------------------------\n"+await brut()+'\n'+await brst()+'\n----------------------------------------------------\n⚡<a href="https://t.me/BRUTUS_energy_bot">¡Alquila energía con BRUTUS!</a>⚡';
+
+}
+
+async function guardarDatos(){
+
   var Data = await consultar(API+'api/v1/precio/BRUT');
 
   var instance = new PrecioBRUT({
@@ -122,10 +130,6 @@ async function miBoletin(){
   });
 
   await instance2.save({});
-
-  var fecha = new Date(Date.now());
-
-  return "🤖 BRUTUS BOLETÍN "+ fecha.getDate() +"/"+ (fecha.getMonth()+1) +"/"+ fecha.getFullYear() +" 🤖\n----------------------------------------------------\n"+await brut()+'\n'+await brst()+'\n----------------------------------------------------\n⚡<a href="https://t.me/BRUTUS_energy_bot">¡Alquila energía con BRUTUS!</a>⚡';
 
 }
 
