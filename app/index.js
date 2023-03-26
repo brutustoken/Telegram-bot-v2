@@ -68,13 +68,19 @@ var listaBoletin = [
 
 ]
 
+var datas = new CronJob('0 20 * * *', async function() {
+  await guardarDatos();
+  console.log("Datos guardados")
+}, null, true, 'America/Bogota');
+
+datas.start();
+
 var boletin = new CronJob('0 10 * * *', async function() {
-  guardarDatos();
   for (let index = 0; index < listaBoletin.length; index++) {
     bot.sendMessage(listaBoletin[index], await miBoletin(), { parse_mode : "HTML"});
     
   }
-  console.log('boletin enviado');
+  console.log('Boletín enviado');
 }, null, true, 'America/Bogota');
 
 boletin.start();
