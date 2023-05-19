@@ -68,12 +68,12 @@ var listaBoletin = [
 
 ]
 
-var datas = new CronJob('0 20 * * *', async function() {
+/*var datas = new CronJob('0 20 * * *', async function() {
   await guardarDatos();
   console.log("Datos guardados")
 }, null, true, 'America/Bogota');
 
-datas.start();
+datas.start();*/
 
 var boletin = new CronJob('0 10 * * *', async function() {
   for (let index = 0; index < listaBoletin.length; index++) {
