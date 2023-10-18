@@ -57,23 +57,17 @@ var comandos = {
   BRST: "brst",
   boletin: "boletin",
   BOLETIN: "boletin",
-  Boletin: "boletin",
-  energia: "Solicita energia y recibe de acuerdo a tu hold de BRST + 10% extra, escribe el comando: <pre>/energiatron <b>TB7R...4XvF</b> </pre>",
-  energiatron: "ahí te va la energia"
+  Boletin: "boletin"
+  //energia: "Solicita energia y recibe de acuerdo a tu hold de BRST + 10% extra, escribe el comando: <pre>/energiatron <b>TB7R...4XvF</b> </pre>",
+  //energiatron: "ahí te va la energia"
 }
 
 var listaBoletin = [ 
-  -1001540123789, 
-  -1001675055650 
+  -1001540123789 //privado
+  //-1001675055650 //publico
 
 ]
 
-/*var datas = new CronJob('0 20 * * *', async function() {
-  await guardarDatos();
-  console.log("Datos guardados")
-}, null, true, 'America/Bogota');
-
-datas.start();*/
 
 var boletin = new CronJob('0 10 * * *', async function() {
   for (let index = 0; index < listaBoletin.length; index++) {
@@ -107,35 +101,7 @@ async function miBoletin(){
 
   var fecha = new Date(Date.now());
 
-  return "🤖 BRUTUS BOLETÍN "+ fecha.getDate() +"/"+ (fecha.getMonth()+1) +"/"+ fecha.getFullYear() +" 🤖\n----------------------------------------------------\n"+await brut()+'\n'+await brst()+'\n----------------------------------------------------\n⚡<a href="https://t.me/BRUTUS_energy_bot">¡Alquila energía con BRUTUS!</a>⚡';
-
-}
-
-async function guardarDatos(){
-
-  var Data = await consultar(API+'api/v1/precio/BRUT');
-
-  var instance = new PrecioBRUT({
-    par: "brut-usd",
-    valor: Data.usd,
-    date: Date.now(),
-    epoch: Date.now()
-    
-  });
-
-  await instance.save({});
-
-  var Data2 = await consultar(API+'api/v1/precio/BRST');
-
-  var instance2 = new PrecioBRST({
-    par: "brst-trx",
-    valor: Data2.trx,
-    date: Date.now(),
-    epoch: Date.now()
-    
-  });
-
-  await instance2.save({});
+  return "🤖 BRUTUS BOLETÍN 🤖\n<pre>    "+ fecha.getDate() +"/"+ (fecha.getMonth()+1) +"/"+ fecha.getFullYear() +"</pre>\n----------------------------------------------------\n"+await brst()+'\n\n'+await brut()+'\n----------------------------------------------------\n⚡<a href="https://t.me/BRUTUS_energy_bot">¡Alquila energía con BRUTUS!</a>⚡';
 
 }
 
@@ -143,14 +109,14 @@ async function brut(){
 
   var Data = await consultar(API+'api/v1/precio/BRUT');
   
-  return "#BRUT 🟠<b> "+Data.usd+"</b> USDT";
+  return "#BRUT\n🟠<b> "+Data.usd+"</b> USDT";
 }
 
 async function brst(){
   
   var Data = await consultar(API+'api/v1/precio/BRST');
   
-  return "#BRST 🔴<b> "+Data.trx+"</b> TRX";
+  return "#BRST\n🔴<b> "+Data.trx+"</b> TRX";
 }
 
 
