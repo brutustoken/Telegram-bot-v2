@@ -63,8 +63,8 @@ var comandos = {
 }
 
 var listaBoletin = [ 
-  -1001540123789 //privado
-  //-1001675055650 //publico
+  -1001540123789, //privado
+  -1001675055650 //publico
 
 ]
 
