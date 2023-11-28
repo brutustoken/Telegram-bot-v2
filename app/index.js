@@ -47,7 +47,7 @@ var comandos = {
 }
 
 var listaBoletin = [ 
-  -1001540123789, //privado BRutus
+  //-1001540123789, //privado BRutus
   -1001675055650 //publico
 
 ]
@@ -56,9 +56,9 @@ var listaBoletin = [
 var boletin = new CronJob('0 10 * * *', async function() {
   for (let index = 0; index < listaBoletin.length; index++) {
     bot.sendMessage(listaBoletin[index], await miBoletin(), { parse_mode : "HTML"});
-    
+    bot.sendMessage(listaBoletin[index], await p2p(), { parse_mode : "HTML"});
   }
-  console.log('Boletín enviado');
+  //console.log('Boletín enviado');
 }, null, true, 'America/Bogota');
 
 boletin.start();
@@ -111,7 +111,7 @@ async function p2p(){
   var Data = await consultar(API+'api/v1/solicitudes/p2p/venta');
   
   for (let index = 0; index < Data.length; index++) {
-    result = result+"Order #"+Data[index].id+"\n🔴<b>Value: "+Data[index].trx+"</b> TRX\nAvailable days: "+Data[index].tiempoRestante+"\n----------------------\n";
+    result = result+"Order #"+Data[index].id+"\n🔴<b>Value: "+Data[index].trx+"</b> TRX\nAvailable for days: "+Data[index].tiempoRestante+"\n----------------------\n";
     
   }
 
