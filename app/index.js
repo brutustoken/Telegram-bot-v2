@@ -103,18 +103,15 @@ async function brst(){
 
 async function p2p(){
 
-  var result = ""
+  var result = "<b>Complete Pending Orders\n<a href='https://brutus.finance/?brst'>brutus.finance/?brst</a>\n----------------</b>\n"
   
-  var Data = await consultar(API+'/api/v1/solicitudes/p2p/venta');
-
-  Data = Data.globRetiros
-
+  var Data = await consultar(API+'api/v1/solicitudes/p2p/venta');
+  
   for (let index = 0; index < Data.length; index++) {
-    result = result+"\nOrder #"+Data[index]+"\n🔴<b>Value: "+Data[index].trx+"</b> TRX\nAvailable days:"+Data[index].tiempoRestante;
+    result = result+"Order #"+Data[index].id+"\n🔴<b>Value: "+Data[index].trx+"</b> TRX\nAvailable days: "+Data[index].tiempoRestante+"\n----------------------\n";
     
   }
 
-  
   return result
 }
 
