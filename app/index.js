@@ -1,6 +1,5 @@
 const TelegramBot = require('node-telegram-bot-api');
 const fetch = require('node-fetch');
-const mongoose = require('mongoose');
 const CronJob = require('cron').CronJob;
 
 require('dotenv').config();
@@ -9,29 +8,10 @@ const API = "http://localhost:3004/";
 
 // replace the value below with the Telegram token you receive from @BotFather
 const token = process.env.APP_TOKENBOT;
-const uriMongoDB = process.env.APP_URIMONGODB;
 
 // Create a bot that uses 'polling' to fetch new updates
 const bot = new TelegramBot(token, {polling: true});
 
-mongoose.set('strictQuery', false);
-mongoose.connect(uriMongoDB)
-.then(()=>{
-  console.log("conectado MD")
-})
-.catch(console.log)
-
-const Schema = mongoose.Schema;
-
-const Precios = new Schema({
-  par: String,
-  valor: Number,
-  date: Date,
-  epoch: Number
-});
-
-const PrecioBRST = mongoose.model('brst', Precios);
-const PrecioBRUT = mongoose.model('brut', Precios);
 
 /*
 - Negrita: <b>texto en negrita</b>, <strong>negrita</strong>
@@ -57,13 +37,14 @@ var comandos = {
   BRST: "brst",
   boletin: "boletin",
   BOLETIN: "boletin",
-  Boletin: "boletin"
+  Boletin: "boletin",
+  p2p: "p2p"
   //energia: "Solicita energia y recibe de acuerdo a tu hold de BRST + 10% extra, escribe el comando: <pre>/energiatron <b>TB7R...4XvF</b> </pre>",
   //energiatron: "ahí te va la energia"
 }
 
 var listaBoletin = [ 
-  -1001540123789, //privado
+  -1001540123789, //privado BRutus
   -1001675055650 //publico
 
 ]
@@ -78,6 +59,7 @@ var boletin = new CronJob('0 10 * * *', async function() {
 }, null, true, 'America/Bogota');
 
 boletin.start();
+
 
 async function consultar(apiUrl){
 
@@ -119,6 +101,22 @@ async function brst(){
   return "#BRST\n🔴<b> "+Data.trx+"</b> TRX";
 }
 
+async function p2p(){
+
+  var result = ""
+  
+  var Data = await consultar(API+'/api/v1/solicitudes/p2p/venta');
+
+  Data = Data.globRetiros
+
+  for (let index = 0; index < Data.length; index++) {
+    result = result+"\nOrder #"+Data[index]+"\n🔴<b>Value: "+Data[index].trx+"</b> TRX\nAvailable days:"+Data[index].tiempoRestante;
+    
+  }
+
+  
+  return result
+}
 
 console.log("Listo!!!")
 
@@ -165,6 +163,11 @@ bot.on('message', async(msg) => {
 
           case "boletin":
             bot.sendMessage(chatId, await miBoletin(), { parse_mode : "HTML"});
+            
+            break;
+
+          case "p2p":
+            bot.sendMessage(chatId, await p2p(), { parse_mode : "HTML"});
             
             break;
         
