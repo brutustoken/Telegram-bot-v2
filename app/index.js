@@ -38,7 +38,10 @@ var comandos = {
   boletin: "boletin",
   BOLETIN: "boletin",
   Boletin: "boletin",
-  p2p: "p2p"
+  p2p: "p2p",
+  orders: "p2p",
+  order: "p2p",
+  orden: "p2p"
   //energia: "Solicita energia y recibe de acuerdo a tu hold de BRST + 10% extra, escribe el comando: <pre>/energiatron <b>TB7R...4XvF</b> </pre>",
   //energiatron: "ahí te va la energia"
 }
