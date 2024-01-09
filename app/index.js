@@ -37,13 +37,7 @@ var comandos = {
   BRST: "brst",
   boletin: "boletin",
   BOLETIN: "boletin",
-  Boletin: "boletin",
-  p2p: "p2p",
-  orders: "p2p",
-  order: "p2p",
-  orden: "p2p"
-  //energia: "Solicita energia y recibe de acuerdo a tu hold de BRST + 10% extra, escribe el comando: <pre>/energiatron <b>TB7R...4XvF</b> </pre>",
-  //energiatron: "ahí te va la energia"
+  Boletin: "boletin"
 }
 
 var listaBoletin = [ 
@@ -56,7 +50,6 @@ var listaBoletin = [
 var boletin = new CronJob('0 10 * * *', async function() {
   for (let index = 0; index < listaBoletin.length; index++) {
     bot.sendMessage(listaBoletin[index], await miBoletin(), { parse_mode : "HTML"});
-    bot.sendMessage(listaBoletin[index], await p2p(), { parse_mode : "HTML"});
   }
   //console.log('Boletín enviado');
 }, null, true, 'America/Bogota');
@@ -104,20 +97,6 @@ async function brst(){
   return "#BRST\n🔴<b> "+Data.trx+"</b> TRX";
 }
 
-async function p2p(){
-
-  var result = "<b>Complete Pending Orders\n<a href='https://brutus.finance/?brst'>brutus.finance/?brst</a>\n----------------</b>\n"
-  
-  var Data = await consultar(API+'api/v1/solicitudes/p2p/venta');
-  
-  for (let index = 0; index < Data.length; index++) {
-    result = result+"Order #"+Data[index].id+"\n🔴<b>Value: "+Data[index].trx+"</b> TRX\nAvailable for days: "+Data[index].tiempoRestante+"\n----------------------\n";
-    
-  }
-
-  return result
-}
-
 console.log("Listo!!!")
 
 // Matches "/echo [whatever]"
@@ -163,11 +142,6 @@ bot.on('message', async(msg) => {
 
           case "boletin":
             bot.sendMessage(chatId, await miBoletin(), { parse_mode : "HTML"});
-            
-            break;
-
-          case "p2p":
-            bot.sendMessage(chatId, await p2p(), { parse_mode : "HTML"});
             
             break;
         
