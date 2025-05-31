@@ -4,9 +4,8 @@
   "description": "es el bot de telegram para ayudar en administarcion",
   "main": "index.js",
   "scripts": {
-    "test": "nodemon app",
-    "start": "nodemon app",
-    "dev": "nodemon app"
+    "start": "node src",
+    "dev": "nodemon src"
   },
   "keywords": [
     "brutus",
@@ -17,7 +16,6 @@
   "dependencies": {
     "cron": "^1.8.2",
     "dotenv": "^16.0.0",
-    "mongoose": "^6.8.1",
     "node-fetch": "^2.6.7",
     "node-telegram-bot-api": "^0.56.0"
   },
